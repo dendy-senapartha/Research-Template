@@ -20,7 +20,7 @@ def main():
     if not re.fullmatch(r"PUB-[0-9]{3,}", publication_id):
         parser.error("Gunakan format PUB-001, PUB-002, ...")
     dest = PUBLICATIONS / publication_id
-    if dest.exists() and any(dest.iterdir()):
+    if dest.exists() and any(item.name != ".gitkeep" for item in dest.iterdir()):
         parser.error(f"Folder berisi file sudah ada: {dest}")
     if not TEMPLATE.is_dir() or not REGISTER.is_file():
         parser.error("Publication template atau register tidak ditemukan")
@@ -31,7 +31,8 @@ def main():
         parser.error(f"Publication ID sudah tercatat: {publication_id}")
 
     if dest.exists():
-        dest.rmdir()  # placeholder .gitkeep harus dipindah terlebih dahulu
+        (dest / ".gitkeep").unlink(missing_ok=True)
+        dest.rmdir()
     shutil.copytree(TEMPLATE, dest)
     manifest = dest / "publication.yml"
     manifest.write_text(
