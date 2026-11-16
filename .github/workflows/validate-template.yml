@@ -1,0 +1,20 @@
+name: Validate Research Template
+
+on:
+  push:
+    branches: [chatGPT, main]
+  pull_request:
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate structure
+        run: python3 scripts/check_structure.py
+      - name: Check shell script syntax
+        run: |
+          bash -n manuscript/latex/compile.sh
+          bash -n publications/_template/manuscript/compile.sh
+
