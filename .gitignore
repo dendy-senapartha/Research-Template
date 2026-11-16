@@ -1,0 +1,42 @@
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+*.pdf
+!docs/**/*.pdf
+
+# Editor dan OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Jangan commit materi sensitif atau kredensial
+.env
+.env.*
+!.env.example
+research/evidence/private/
+research/evidence/confidential/
+secrets/
+credentials/
+
