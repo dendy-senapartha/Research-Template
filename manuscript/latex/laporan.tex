@@ -1,0 +1,16 @@
+% Main entry point. Pilih 'proposal' atau 'dissertation' dalam config.tex.
+\documentclass[12pt,a4paper,oneside]{report}
+\input{config}
+\input{preamble}
+
+\begin{document}
+\ifthenelse{\equal{\DocumentMode}{proposal}}{%
+    \input{flows/proposal}%
+}{%
+    \ifthenelse{\equal{\DocumentMode}{dissertation}}{%
+        \input{flows/dissertation}%
+    }{%
+        \PackageError{research-template}{DocumentMode tidak dikenal}{Gunakan proposal atau dissertation pada config.tex}%
+    }%
+}
+\end{document}
