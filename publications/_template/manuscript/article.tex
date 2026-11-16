@@ -1,0 +1,41 @@
+% Jalankan dari folder file ini dengan pdflatex + bibtex.
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\title{Judul Artikel Ilmiah}
+\author{Nama Penulis}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+[Tulis ringkasan sesuai evidence, bukan hasil yang belum tersedia.]
+\end{abstract}
+
+\section{Introduction}
+[Latar masalah, gap penelitian, tujuan, dan kontribusi.]
+
+\section{Related Work}
+[Temuan sumber relevan dan perbedaan posisi studi.]
+
+\section{Methodology}
+[Metode yang telah dilakukan dan disetujui.]
+
+\section{Results}
+[Masukkan hanya hasil yang telah diverifikasi.]
+
+\section{Discussion}
+[Interpretasi, keterbatasan, dan implikasi.]
+
+\section{Conclusion}
+[Kesimpulan proporsional berdasarkan hasil.]
+
+% Contoh referensi valid; hapus bila tidak relevan dengan artikel.
+\nocite{lamport1994latex}
+\bibliographystyle{plainnat}
+\bibliography{../../../references/references}
+\end{document}
