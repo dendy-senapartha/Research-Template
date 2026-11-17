@@ -1,38 +1,36 @@
 # Research Template
 
-Template repository penelitian generik dengan pemisahan **research governance**, protokol, evidence, artefak, manuskrip LaTeX, dan publikasi ilmiah.
+Template repository penelitian dengan pemisahan governance, protokol, evidence, artefak, manuskrip LaTeX, dan publikasi jurnal/prosiding.
 
-Template ini **tidak** berisi data partisipan, hasil penelitian, keputusan ilmiah suatu studi, atau artikel yang sudah disubmit. Seluruh konten penelitian harus ditambahkan dan diverifikasi oleh pemilik proyek.
+## Struktur
 
-## Struktur utama
+- \`agents/research/\` dan \`agents/writing/\`: arahan asisten penelitian dan penulisan.
+- \`research/governance/\`: research canon, decision log, open questions, research log.
+- \`research/protocols/\`, \`research/evidence/\`, \`research/artifacts/\`: prosedur, data, serta luaran penelitian.
+- \`manuscript/latex/\`: template Universitas Udayana berbasis repository \`dendy-senapartha/disertation\`, branch \`proposal\`.
+- \`publications/\`: Publication ID, metadata, dan workspace artikel.
+- \`references/a7-pustaka.bib\`: bibliografi bersama.
+- \`scripts/\`, \`docs/\`, \`archive/\`: utilitas, panduan, dan arsip.
 
-- `agents/research/`: instruksi Research Agent untuk validitas klaim dan tata kelola penelitian.
-- `agents/writing/`: instruksi Writing Agent dan modul penulisan akademik.
-- `research/governance/`: research canon, decision log, open questions, research log.
-- `research/protocols/`: protokol literature review, studi, pengembangan artefak, eksperimen, dan evaluasi.
-- `research/evidence/`: sumber dan bukti penelitian yang aman disimpan.
-- `research/artifacts/`: luaran working, validated, dan frozen.
-- `manuscript/latex/`: template naskah berformat proposal atau disertasi/laporan penelitian.
-- `publications/`: register publikasi dan template artikel jurnal/prosiding.
-- `references/`: bibliografi utama.
-- `scripts/`: validasi dan utilitas.
-- `docs/`: panduan awal, struktur, dan template ChatGPT Project Instructions.
-- `archive/`: catatan lama yang bukan keputusan aktif.
+## Cara memulai
 
-## Mulai menggunakan
+1. Isi \`research/governance/research-canon.md\` setelah keputusan penelitian ditetapkan.
+2. Gunakan \`docs/getting-started.md\` untuk menyesuaikan proyek baru.
+3. Ganti placeholder penulis, judul, promotor, tanggal pada \`manuscript/latex/a0-identitas.tex\`. Nama Universitas Udayana sengaja dipertahankan dan dapat diubah jika proyek digunakan di institusi lain.
+4. Pilih mode \`praproposal\`, \`proposal\`, atau \`disertasi\` pada \`manuscript/latex/laporan.tex\`.
+5. Tambahkan rujukan terverifikasi di \`references/a7-pustaka.bib\`.
+6. Untuk kompilasi, jalankan:
 
-1. Gunakan repository ini sebagai template atau salin ke repository penelitian baru.
-2. Baca `docs/getting-started.md` dan isi tata kelola penelitian terlebih dahulu.
-3. Atur judul, penulis, institusi dan mode naskah di `manuscript/latex/config.tex`.
-4. Tambahkan referensi terverifikasi di `references/references.bib`.
-5. Untuk menghasilkan PDF, jalankan `bash manuscript/latex/compile.sh`.
-6. Buat artikel baru dari `publications/_template/` dan catat di `publications/publication-register.csv`.
-7. Jalankan `python3 scripts/check_structure.py` untuk pemeriksaan struktur dasar.
+\`\`\`bash
+cd manuscript/latex
+bash compile.sh --skip-deps
+\`\`\`
 
-Panduan LaTeX tersedia di `manuscript/latex/README.md`. Panduan penggunaan sebagai ChatGPT Project ada di `docs/project-instructions-template.md`.
+7. Untuk publikasi, gunakan \`publications/_template/\`, \`publication-register.csv\`, dan \`python3 scripts/new_publication.py PUB-001\`.
+8. Validasi struktur melalui \`python3 scripts/check_structure.py\`.
 
-## Batasan
+## Ruang lingkup template
 
-Struktur dan format adalah contoh yang dapat diadaptasi untuk bidang ilmu, jenis riset, dan ketentuan institusi. Status `validated` atau `frozen` **tidak otomatis diberikan** hanya karena sebuah file ada di folder tertentu.
+Komponen LaTeX mempertahankan tata letak dan script kompilasi sumber, tetapi seluruh isi riset, nama individu, data, dan lampiran spesifik dihapus. Berkas gambar dari penelitian sumber tidak ikut disalin selain logo Universitas Udayana.
 
-Sebelum mengunggah data, periksa privasi, informed consent, izin penggunaan materi berhak cipta, dan kebijakan akses repository. Tidak ada lisensi open-source yang secara otomatis diberikan oleh template ini; pemilik repository dapat menambahkan lisensi yang sesuai.
+Ini bukan template resmi universitas, dan tidak memuat keputusan ilmiah maupun data penelitian yang telah divalidasi.

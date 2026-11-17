@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""Lightweight, dependency-free validation for the generic repository template."""
+"""Validate reusable research repository and Udayana LaTeX skeleton."""
 from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-
 REQUIRED = [
-    "README.md",
     "agents/research/Agent.md",
     "agents/writing/Agent.md",
     "research/governance/research-canon.md",
@@ -14,52 +12,52 @@ REQUIRED = [
     "research/governance/open-questions.csv",
     "research/governance/research-log.md",
     "research/protocols/protocol-template.md",
-    "research/evidence/README.md",
     "research/artifacts/README.md",
-    "research/artifacts/working/.gitkeep",
-    "research/artifacts/validated/.gitkeep",
-    "research/artifacts/frozen/.gitkeep",
     "manuscript/latex/laporan.tex",
-    "manuscript/latex/config.tex",
-    "manuscript/latex/preamble.tex",
+    "manuscript/latex/a0-identitas.tex",
     "manuscript/latex/compile.sh",
+    "manuscript/latex/untouch/xx-preambles.tex",
+    "manuscript/latex/untouch/xx-daftar.tex",
+    "manuscript/latex/untouch/xx-daftarpustaka.tex",
+    "manuscript/latex/flows/praproposal.tex",
     "manuscript/latex/flows/proposal.tex",
-    "manuscript/latex/flows/dissertation.tex",
-    "manuscript/latex/flows/frontmatter.tex",
-    "manuscript/latex/backmatter/references.tex",
+    "manuscript/latex/flows/disertasi.tex",
+    "manuscript/latex/b1-bab1.tex",
+    "manuscript/latex/b2-bab2.tex",
+    "manuscript/latex/b3-bab3.tex",
+    "manuscript/latex/b4-bab4.tex",
+    "manuscript/latex/b5-bab5.tex",
+    "manuscript/latex/a8-lampiran.tex",
+    "manuscript/latex/gambar/UdayanaLogo720p.png",
+    "references/a7-pustaka.bib",
     "publications/publication-register.csv",
     "publications/_template/publication.yml",
     "publications/_template/manuscript/article.tex",
-    "references/references.bib",
-    "docs/getting-started.md",
-    "docs/project-instructions-template.md",
 ]
-
-errors = []
-for path in REQUIRED:
-    if not (ROOT / path).is_file():
-        errors.append(f"File tidak ditemukan: {path}")
-
+errors = [f"Missing: {p}" for p in REQUIRED if not (ROOT / p).is_file()]
 if not errors:
     main = (ROOT / "manuscript/latex/laporan.tex").read_text(encoding="utf-8")
-    config = (ROOT / "manuscript/latex/config.tex").read_text(encoding="utf-8")
-    bib = (ROOT / "manuscript/latex/backmatter/references.tex").read_text(encoding="utf-8")
+    bib = (ROOT / "manuscript/latex/untouch/xx-daftarpustaka.tex").read_text(encoding="utf-8")
     article = (ROOT / "publications/_template/manuscript/article.tex").read_text(encoding="utf-8")
-    if r"\input{flows/proposal}" not in main:
-        errors.append("Main LaTeX tidak terhubung ke proposal.")
-    if r"\input{flows/dissertation}" not in main:
-        errors.append("Main LaTeX tidak terhubung ke dissertation.")
-    if r"\newcommand{\DocumentMode}{proposal}" not in config:
-        errors.append("Mode awal config.tex bukan proposal.")
-    if r"\bibliography{../../references/references}" not in bib:
-        errors.append("Path bibliography naskah tidak sesuai.")
-    if r"\bibliography{../../../references/references}" not in article:
-        errors.append("Path bibliography artikel tidak sesuai.")
-
-print(f"Checked {len(REQUIRED)} required paths.")
+    compiler = (ROOT / "manuscript/latex/compile.sh").read_text(encoding="utf-8")
+    checks = {
+        "Practical mode selection": r"\newcommand{\DocFlow}{proposal}" in main,
+        "Proposal flow": r"\input{flows/proposal}" in main,
+        "Praproposal flow": r"\input{flows/praproposal}" in main,
+        "Dissertation flow": r"\input{flows/disertasi}" in main,
+        "Manuscript BibTeX": r"\bibliography{../../references/a7-pustaka}" in bib,
+        "Publication BibTeX": r"\bibliography{../../../references/a7-pustaka}" in article,
+        "Original compiler features": "--skip-deps" in compiler and "check_dependencies" in compiler and "bibtex" in compiler,
+    }
+    errors.extend(f"Invalid link: {key}" for key, ok in checks.items() if not ok)
+    for p in (ROOT / "manuscript/latex").rglob("*.tex"):
+        content = p.read_text(encoding="utf-8")
+        for forbidden in ["I Kadek Dendy Senapartha", "2591011009", "Tri Sandhya", "Kramaning Sembah", "Artifact Praxis Model"]:
+            if forbidden.lower() in content.lower():
+                errors.append(f"Research-specific text remains: {p.relative_to(ROOT)}")
+print(f"Checked {len(REQUIRED)} required files.")
 if errors:
-    for error in errors:
-        print(f"FAIL: {error}", file=sys.stderr)
+    for issue in errors:
+        print("FAIL:", issue, file=sys.stderr)
     sys.exit(1)
-print("PASS: repository structure and key LaTeX references.")
-
+print("PASS: repository and manuscript structure.")
