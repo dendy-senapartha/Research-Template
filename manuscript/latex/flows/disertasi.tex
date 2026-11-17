@@ -1,0 +1,33 @@
+% Flow laporan disertasi, dikompilasi melalui laporan.tex.
+\providecommand{\tipe}{DISERTASI}
+\providecommand{\type}{DISSERTATION}
+
+\include{untouch/xx-sampul-laporan}
+\pagenumbering{roman}
+\include{untouch/xx-sampuldalam-laporan}
+\begin{spacing}{1.0}
+\include{a2-abstrak}
+\include{a3-abstract}
+\end{spacing}
+\begin{spacing}{1.5}
+\include{untouch/xx-pernyataan}
+\end{spacing}
+\include{untouch/xx-persetujuan-ujian}
+\include{untouch/xx-pengesahan}
+\include{untouch/xx-penetapan-tim-penguji-disertasi}
+\begin{spacing}{1.0}
+\include{a4-persembahan}
+\include{a5-katapengantar}
+\include{untouch/xx-daftar}
+\end{spacing}
+\pagenumbering{arabic}
+\begin{spacing}{1.5}
+\include{b1-bab1}
+\include{b2-bab2}
+\include{b3-bab3}
+\include{b4-bab4}
+\include{b5-bab5}
+% \include{b6-bab6} % Panduan opsional, bukan bab disertasi.
+\end{spacing}
+\input{untouch/xx-daftarpustaka}
+\input{a8-lampiran}
