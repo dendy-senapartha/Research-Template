@@ -1,16 +1,21 @@
-% Main entry point. Pilih 'proposal' atau 'dissertation' dalam config.tex.
-\documentclass[12pt,a4paper,oneside]{report}
-\input{config}
-\input{preamble}
+% !TeX spellcheck = <none>
+% Entry point dari template Universitas Udayana.
+\documentclass[12pt, a4paper, onecolumn, oneside, final]{report}
+\input{a0-identitas}
+\input{untouch/xx-preambles}
+\input{a1-database.hyphenate}
+
+% Pilih praproposal | proposal | disertasi
+\newcommand{\DocFlow}{proposal}
 
 \begin{document}
-\ifthenelse{\equal{\DocumentMode}{proposal}}{%
-    \input{flows/proposal}%
-}{%
-    \ifthenelse{\equal{\DocumentMode}{dissertation}}{%
-        \input{flows/dissertation}%
-    }{%
-        \PackageError{research-template}{DocumentMode tidak dikenal}{Gunakan proposal atau dissertation pada config.tex}%
-    }%
+\ifthenelse{\equal{\DocFlow}{praproposal}}{
+    \input{flows/praproposal}
+}{
+    \ifthenelse{\equal{\DocFlow}{disertasi}}{
+        \input{flows/disertasi}
+    }{
+        \input{flows/proposal}
+    }
 }
 \end{document}

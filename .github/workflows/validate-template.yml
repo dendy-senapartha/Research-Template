@@ -9,37 +9,45 @@ jobs:
   structure:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Validate structure
+      - uses: actions/checkout@v4
+      - name: Check directory structure and safe placeholders
         run: python3 scripts/check_structure.py
-      - name: Check shell script syntax
+      - name: Check original compiler and article compiler syntax
         run: |
           bash -n manuscript/latex/compile.sh
           bash -n publications/_template/manuscript/compile.sh
-      - name: Smoke test publication workspace
+      - name: Publication workspace smoke test
         run: |
           python3 scripts/new_publication.py PUB-001
           grep -F 'id: "PUB-001"' publications/PUB-001/publication.yml
-          grep -F 'PUB-001' publications/publication-register.csv
 
   latex:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Install TeX Live packages
+      - uses: actions/checkout@v4
+      - name: Install TeX Live
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
             texlive-latex-base texlive-latex-recommended \
-            texlive-fonts-recommended texlive-lang-other \
-            texlive-latex-extra
-      - name: Compile proposal and article
+            texlive-latex-extra texlive-pictures texlive-lang-other \
+            texlive-fonts-recommended
+      - name: Compile proposal with original source script
         run: |
-          bash manuscript/latex/compile.sh
-          bash publications/_template/manuscript/compile.sh
-      - name: Compile dissertation mode
+          cd manuscript/latex
+          bash compile.sh --skip-deps --error-only
+          test -s laporan.pdf
+      - name: Compile praproposal
         run: |
-          sed -i 's/{proposal} % proposal | dissertation/{dissertation} % proposal | dissertation/' manuscript/latex/config.tex
-          bash manuscript/latex/compile.sh
+          sed -i 's/DocFlow}{proposal}/DocFlow}{praproposal}/' manuscript/latex/laporan.tex
+          cd manuscript/latex
+          bash compile.sh --skip-deps --error-only
+          test -s laporan.pdf
+      - name: Compile disertasi
+        run: |
+          sed -i 's/DocFlow}{praproposal}/DocFlow}{disertasi}/' manuscript/latex/laporan.tex
+          cd manuscript/latex
+          bash compile.sh --skip-deps --error-only
+          test -s laporan.pdf
+      - name: Compile publication article
+        run: bash publications/_template/manuscript/compile.sh

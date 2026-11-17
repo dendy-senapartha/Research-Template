@@ -1,45 +1,19 @@
-# Panduan Memulai Penelitian Baru
+# Mulai Proyek Penelitian
 
-## 1. Buat repository proyek
+1. Buat salinan repository, atur akses sesuai sensitivitas penelitian.
+2. Isi \`research/governance/research-canon.md\` dan catat keputusan resmi di \`decision-log.csv\`.
+3. Rancang prosedur berdasarkan \`research/protocols/protocol-template.md\`.
+4. Simpan evidence berizin dan luaran yang dapat ditelusuri di \`research/\`.
+5. Isi metadata pada \`manuscript/latex/a0-identitas.tex\`, termasuk placeholder penulis, judul, pembimbing, dan tanggal. Institusi default masih Universitas Udayana.
+6. Atur \`\\DocFlow\` pada \`manuscript/latex/laporan.tex\` menjadi \`praproposal\`, \`proposal\`, atau \`disertasi\`.
+7. Tambahkan pustaka terverifikasi ke \`references/a7-pustaka.bib\`.
+8. Kompilasi dokumen:
 
-Salin template ke repository penelitian baru. Atur visibility sesuai sensitivitas data. Jika repository ini dipakai sebagai GitHub Template, pengaturan **Template repository** perlu diaktifkan secara manual di GitHub Settings.
+\`\`\`bash
+cd manuscript/latex
+bash compile.sh --skip-deps
+\`\`\`
 
-## 2. Tentukan tata kelola
+9. Untuk publikasi jurnal/prosiding, gunakan \`publications/_template/\` dan register. Jalankan \`python3 scripts/check_structure.py\` untuk validasi dasar.
 
-1. Isi `research/governance/research-canon.md` dengan scope, RQ, serta keputusan yang memang sudah disepakati.
-2. Setiap keputusan baru ditulis di `decision-log.csv`.
-3. Pertanyaan yang belum terjawab masuk ke `open-questions.csv`.
-4. Catat progres nyata pada `research-log.md`.
-5. Simpan bibliografi terverifikasi ke `references/references.bib`.
-
-Jangan menyatakan sebuah keputusan **fixed** hanya karena template menyediakan bagian untuk itu.
-
-## 3. Susun protokol dan bukti
-
-Duplikasi `research/protocols/protocol-template.md` sesuai jenis kegiatan. Tambahkan data yang aman dibagikan pada `research/evidence/`. Simpan data identitas, formulir persetujuan, serta data mentah sensitif pada penyimpanan privat yang diatur oleh institusi dan izin partisipan.
-
-Gunakan `research/artifacts/working/` untuk draft, `validated/` hanya untuk output yang lolos pemeriksaan, dan `frozen/` untuk versi yang dikunci dengan bukti provenance.
-
-## 4. Sesuaikan manuskrip
-
-Edit `manuscript/latex/config.tex` untuk judul, identitas, institusi, dan mode. Pilih `proposal` atau `dissertation`. Isi bab di `manuscript/latex/chapters/`, dan jalankan:
-
-    bash manuscript/latex/compile.sh
-
-Dibutuhkan instalasi TeX Live atau MiKTeX dengan pdflatex, bibtex, dan paket di `preamble.tex`. Sesuaikan format dengan pedoman kampus, karena ini bukan template resmi sebuah institusi.
-
-## 5. Buat publikasi
-
-Salin `publications/_template/` ke `publications/PUB-001/` dan seterusnya. Isi metadata, lalu tambahkan entri yang benar pada `publications/publication-register.csv`. Hubungkan evidence dengan ID artefak dan commit sumber, bukan menduplikasi hasil yang tidak terlacak.
-
-## 6. Pemeriksaan
-
-    python3 scripts/check_structure.py
-    bash -n manuscript/latex/compile.sh
-    bash -n publications/_template/manuscript/compile.sh
-
-Pemeriksaan tersebut tidak menggantikan validasi ilmiah dan uji kompilasi PDF.
-
-## 7. Hubungkan ChatGPT Project
-
-Salin dan sesuaikan `docs/project-instructions-template.md`. Isi repository, branch aktif, dan aturan spesifik proyek. Gunakan GitHub connector untuk membaca isi branch aktual, bukan mengandalkan file yang mungkin sudah kedaluwarsa.
+Lihat \`manuscript/latex/README.md\` untuk panduan mode naskah dan kompilasi. Data personal atau data partisipan sensitif tidak boleh diunggah ke repository publik. Penyesuaian ke pedoman resmi institusi tetap merupakan tanggung jawab proyek baru.

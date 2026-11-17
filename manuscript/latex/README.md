@@ -1,20 +1,41 @@
-# Template Manuskrip LaTeX
+# Template Manuskrip LaTeX Universitas Udayana
 
-Template ini menggunakan kelas LaTeX `report`, ukuran A4, dan paket umum. Tidak mengklaim kesesuaian dengan pedoman universitas tertentu.
+Struktur, format, dan script kompilasi diadaptasi dari \`dendy-senapartha/disertation\` branch \`proposal\`, direktori \`manuscript/latex/\`. Template ini mempertahankan identitas institusi dan logo Universitas Udayana, tetapi seluruh isi penelitian, identitas individu, tanggal, serta lampiran khusus riset diganti dengan placeholder.
 
-## Konfigurasi
+**Catatan:** ini adalah template turunan untuk memudahkan penulisan, bukan klaim bahwa format sudah disahkan Universitas Udayana.
 
-1. Isi judul, penulis, institusi, dan pembimbing pada `config.tex`.
-2. Pilih `\\DocumentMode` bernilai `proposal` (Bab 1-3) atau `dissertation` (Bab 1-6).
-3. Tulis isi pada `chapters/`, abstrak pada `frontmatter/abstract.tex`, dan lampiran pada `appendices/`.
-4. Periksa citation key dan tambahkan pustaka ke `../../references/references.bib`.
-5. Jalankan `bash compile.sh` dari folder ini, atau `bash manuscript/latex/compile.sh` dari root repository.
+## File utama
 
-Perintah memerlukan `pdflatex` dan `bibtex`. Keluaran PDF `laporan.pdf` tidak dilacak Git.
+- \`laporan.tex\`: entry point utama, memilih alur \`praproposal\`, \`proposal\`, atau \`disertasi\`.
+- \`a0-identitas.tex\`: judul, penulis, program studi, promotor, pejabat, dan tanggal.
+- \`untouch/xx-preambles.tex\`: format bab, margin, caption, daftar isi, bibliografi, listing, dan TikZ.
+- \`flows/\`: alur yang menggunakan komponen \`untouch/\`.
+- \`a2-...\`, \`b1-...\`, \`lampiran/\`: placeholder substansi penelitian.
+- \`compile.sh\`: script kompilasi dari sumber, lengkap dengan pemeriksaan dependensi dan cache, BibTeX, pengulangan kompilasi, serta opsi pembersihan.
+- \`gambar/UdayanaLogo720p.png\`: logo institusi dari sumber.
 
-## Catatan
+## Cara menggunakan
 
-- `flows/proposal.tex` dan `flows/dissertation.tex` memisahkan susunan bab.
-- Komponen format utama ada di `preamble.tex`, bukan file penelitian.
-- Perubahan `\\DocumentMode` hanya mengubah alur penyusunan, bukan status penelitian.
-- Adaptasikan margin, halaman persetujuan, penomoran, font, dan gaya pustaka sesuai ketentuan institusi atau penerbit.
+1. Isi semua placeholder di \`a0-identitas.tex\`.
+2. Pilih mode pada \`laporan.tex\`:
+
+\`\`\`tex
+\newcommand{\DocFlow}{proposal} % praproposal | proposal | disertasi
+\`\`\`
+
+3. Edit bab di \`b1-bab1.tex\` sampai \`b5-bab5.tex\` sesuai desain penelitian. \`b6-bab6.tex\` merupakan tutorial opsional.
+4. Cantumkan pustaka terverifikasi di \`../../references/a7-pustaka.bib\`.
+5. Dari root repository, jalankan:
+
+\`\`\`bash
+cd manuscript/latex
+bash compile.sh --skip-deps
+\`\`\`
+
+Gunakan \`bash compile.sh --help\` untuk opsi lengkap. \`--skip-deps\` hanya melewati pemeriksaan dependensi, bukan menginstal paket. Gunakan tanpa opsi itu agar script memeriksa paket.
+
+## Penyesuaian kompilasi
+
+Sistem kompilasi tetap mengikuti script asli. Satu perbaikan kompatibilitas di \`untouch/xx-preambles.tex\` menyediakan font Times cadangan ketika paket \`newtx\` tidak terpasang.
+
+Logo Universitas Udayana dipertahankan. File PDF hasil kompilasi, diagram penelitian lama, kuesioner riset, dan berkas personal tidak disalin karena template ini berada di repository publik.

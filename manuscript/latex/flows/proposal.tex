@@ -1,7 +1,32 @@
-% Proposal: Bab 1 sampai Bab 3.
-\input{flows/frontmatter}
-\input{chapters/01-introduction}
-\input{chapters/02-literature-review}
-\input{chapters/03-methodology}
-\input{backmatter/references}
-% Tambahkan lampiran proposal sesuai kebutuhan.
+%==================================================================
+% Ini adalah file utama dari dokumen LaTeX ini
+%==================================================================
+
+\providecommand{\tipe}{PROPOSAL DISERTASI} %Tipe Laporan
+\providecommand{\type}{DISERTATION PROPOSAL} %Tipe Laporan
+	
+\include{untouch/xx-sampul-proposal}
+\pagenumbering{roman}
+\include{untouch/xx-sampuldalam-proposal}
+\include{untouch/xx-persetujuan-proposal}
+\include{untouch/xx-penetapan-tim-penguji-proposal.tex}
+		
+\begin{spacing}{1.0}
+	\include{untouch/xx-daftar}
+\end{spacing}
+		
+\pagenumbering{arabic}
+		
+\begin{spacing}{1.5}
+	\include{b1-bab1}
+	\include{b2-bab2}
+	\include{b3-bab3}
+	\include{b4-bab4}
+	%\include{b6-bab6} %HANYA TUTORIAL HAPUS SAAT PENULISAN
+\end{spacing}
+		
+	
+\input{untouch/xx-daftarpustaka}
+\input{a8-lampiran}
+
+%% DILARANG EDIT BAGIAN INI
