@@ -1,0 +1,85 @@
+%==================================================================
+% Ini adalah halaman persetujuan
+%==================================================================
+
+%% DILARANG EDIT BAGIAN INI
+\newpage
+
+% Macro to resize both name and NIP if name would wrap to two lines
+\newcommand{\smartsignature}[2]{%
+    % Test if name fits in one line at normal size
+    \setbox0=\hbox{#1}%
+    \ifdim\wd0>0.47\textwidth
+        % Name is too wide, use smaller font for both name and NIP
+        {\small #1\\[0.3em]#2}%
+    \else
+        % Name fits, use normal size for both
+        {#1\\[0.3em]#2}%
+    \fi
+}
+
+\addcontentsline{toc}{chapter}{HALAMAN PERSETUJUAN USULAN PENELITIAN DISERTASI}
+\begin{center}
+    \begin{onehalfspace}
+        \textbf{\large Lembar Persetujuan Promotor/Kopromotor}
+    \end{onehalfspace}
+\end{center}
+
+\begin{center}
+    \begin{onehalfspace}
+        \large \MakeUppercase {USULAN PENELITIAN DISERTASI INI TELAH DISETUJUI PADA TANGGAL \tglpersetujuan}
+    \end{onehalfspace}
+\end{center}
+
+\begin{center}
+	\begin{minipage}[t]{0.47\textwidth}
+		\centering
+		
+		%\vspace{1.5em}
+		Promotor \\[2.5cm]
+		
+		\smartsignature{\promotor}{NIP. \NIPpromotor}
+	\end{minipage}    
+\end{center}
+
+\vspace{0.75cm}
+\noindent\begin{minipage}[t]{0.47\textwidth}
+    \raggedright
+    %\vspace{1.5em}
+    Kopromotor I,\\[2.5cm]
+    
+    \smartsignature{\kopromotorI}{NIP. \NIPkopromotorI}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.47\textwidth}
+    \raggedright
+    Kopromotor II,\\[2.5cm]
+    
+    \smartsignature{\kopromotorII}{NIP. \NIPkopromotorII}
+\end{minipage}%
+
+\begin{center}
+	Mengetahui
+\end{center}
+
+\vspace{0.75cm}
+\noindent\begin{minipage}[t]{0.47\textwidth}
+	\raggedright
+	%\vspace{1.5em}
+	Direktur \\
+	Pascasarjana \\
+	Universitas Udayana,\\[2.5cm]
+	
+	\smartsignature{\dekan}{NIP. \NIPdekan}
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.47\textwidth}
+	\raggedright
+	Koordinator Program Studi Doktor Teknik\\
+	Pascasarjana
+	Universitas Udayana,\\[2.5cm]
+	
+	\smartsignature{\koorprodi}{NIP. \NIPkoorprodi}
+\end{minipage}%
+
+%% DILARANG EDIT BAGIAN INI
